@@ -1,0 +1,12 @@
+{
+	"name": "ls_AzureSqlDatabase",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=cowinserver0001.database.windows.net;initial catalog=database001forcowin;user id=admin-cowin",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEUxNEUyMTUzLUUyMzEtNEYzOS05M0Y4LUI5N0MzMzc2NzU3NV8wZDVlYTc5YS03M2M5LTQwMTctYjhjMy1mZjNkMGJkMGQ2MGEiDQp9"
+		}
+	}
+}

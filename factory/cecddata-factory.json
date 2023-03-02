@@ -1,0 +1,9 @@
+{
+	"name": "cecddata-factory",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "a714daa4-a130-4038-bbcd-92011bc18b77",
+		"tenantId": "90d12e33-ad5e-4e82-8b5e-82bff0658ae0"
+	}
+}
