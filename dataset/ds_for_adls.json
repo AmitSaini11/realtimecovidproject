@@ -10,11 +10,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "population_by_age.tsv",
+				"fileName": "population_by_age2.csv",
 				"fileSystem": "raw"
 			},
-			"columnDelimiter": "\t",
-			"compressionCodec": "gzip",
+			"columnDelimiter": ",",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
