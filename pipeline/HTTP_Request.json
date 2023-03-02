@@ -48,7 +48,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ds_Deaths_dataset",
+						"referenceName": "hospital_admissions_dataset",
 						"type": "DatasetReference"
 					}
 				],
