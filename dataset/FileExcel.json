@@ -1,10 +1,6 @@
 {
 	"name": "FileExcel",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "HttpServerrequest",
-			"type": "LinkedServiceReference"
-		},
 		"annotations": [],
 		"type": "Excel",
 		"typeProperties": {

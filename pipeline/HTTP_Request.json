@@ -48,13 +48,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "CSVDelimitedText1",
+						"referenceName": "FormSourceDelimitedText",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "SinkfromHTTPDelimitedText",
+						"referenceName": "OutputDelimitedText1",
 						"type": "DatasetReference"
 					}
 				]
