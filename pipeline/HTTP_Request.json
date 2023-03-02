@@ -48,13 +48,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "FormSourceDelimitedText",
+						"referenceName": "ds_Deaths_dataset",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "OutputDelimitedText1",
+						"referenceName": "Output_deaths_dataset",
 						"type": "DatasetReference"
 					}
 				]
