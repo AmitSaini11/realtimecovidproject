@@ -48,7 +48,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "hospital_admissions_dataset",
+						"referenceName": "testing_dataset",
 						"type": "DatasetReference"
 					}
 				],
