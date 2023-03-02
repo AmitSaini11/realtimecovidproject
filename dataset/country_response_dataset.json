@@ -1,17 +1,16 @@
 {
-	"name": "Output_deaths_dataset",
+	"name": "country_response_dataset",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_ADLS",
+			"referenceName": "HttpServer1",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobFSLocation",
-				"fileName": "country_response.csv",
-				"fileSystem": "newhttps"
+				"type": "HttpServerLocation",
+				"relativeUrl": "country_response.csv"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
