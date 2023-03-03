@@ -10,7 +10,7 @@
 		"type": "HttpServer",
 		"typeProperties": {
 			"url": "@{linkedService().SourceBaseURL}",
-			"enableServerCertificateValidation": true,
+			"enableServerCertificateValidation": false,
 			"authenticationType": "Anonymous"
 		}
 	}
