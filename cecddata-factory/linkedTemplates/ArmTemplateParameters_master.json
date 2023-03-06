@@ -14,6 +14,12 @@
 		"ls_AzureSqlDatabase_connectionString": {
 			"value": ""
 		},
+		"HttpServer1_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/cloudboxacademy/covid19/main/ecdc_data/"
+		},
+		"HttpServer2_properties_typeProperties_url": {
+			"value": "@{linkedService().SourceBaseURL}"
+		},
 		"ls_ADLS_properties_typeProperties_url": {
 			"value": "https://adlsfor001cowin.dfs.core.windows.net/"
 		},
