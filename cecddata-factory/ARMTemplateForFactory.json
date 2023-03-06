@@ -379,7 +379,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileSystem": "CasesDaethOutput"
+						"fileSystem": "deathscasesoutput"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
