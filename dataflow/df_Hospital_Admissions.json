@@ -26,7 +26,30 @@
 					"name": "CountrySource"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_processed_hospital_admission_weekly",
+						"type": "DatasetReference"
+					},
+					"name": "sinkWeekly",
+					"rejectedDataLinkedService": {
+						"referenceName": "ls_ADLS",
+						"type": "LinkedServiceReference"
+					}
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_processed_hospital_admission_Daily",
+						"type": "DatasetReference"
+					},
+					"name": "sink1",
+					"rejectedDataLinkedService": {
+						"referenceName": "ls_ADLS",
+						"type": "LinkedServiceReference"
+					}
+				}
+			],
 			"transformations": [
 				{
 					"name": "selectReqdFileds"
@@ -47,10 +70,10 @@
 					"name": "joinWithDate"
 				},
 				{
-					"name": "pivot1"
+					"name": "pivotWeekly"
 				},
 				{
-					"name": "pivot2"
+					"name": "pivotDaily"
 				},
 				{
 					"name": "SortWeekly"
@@ -59,7 +82,10 @@
 					"name": "SortDaily"
 				},
 				{
-					"name": "select3"
+					"name": "selectWeekly"
+				},
+				{
+					"name": "selectDaily"
 				}
 			],
 			"scriptLines": [
@@ -145,11 +171,13 @@
 				"          country_code_3_digit,",
 				"          population,",
 				"          reported_year_week,",
+				"          week_start_date,",
+				"          week_end_date,",
 				"          source),",
 				"     pivotBy(indicator, ['Weekly new hospital admissions per 100k', 'Weekly new ICU admissions per 100k']),",
 				"     count = sum(value),",
-				"     columnNaming: '$V_$N',",
-				"     lateral: true) ~> pivot1",
+				"     columnNaming: '$V...$N',",
+				"     lateral: true) ~> pivotWeekly",
 				"SplitDailyFromWeekly@Daily pivot(groupBy(country,",
 				"          country_code_2_digit,",
 				"          country_code_3_digit,",
@@ -158,11 +186,11 @@
 				"          source),",
 				"     pivotBy(indicator, ['Daily Hospital occupancy', 'Daily ICU occupancy']),",
 				"     count = sum(value),",
-				"     columnNaming: '$N_$V',",
-				"     lateral: true) ~> pivot2",
-				"pivot1 sort(desc(reported_year_week, true),",
+				"     columnNaming: '$V...$N',",
+				"     lateral: true) ~> pivotDaily",
+				"pivotWeekly sort(desc(reported_year_week, true),",
 				"     asc(country, true)) ~> SortWeekly",
-				"pivot2 sort(desc(reported_date, true),",
+				"pivotDaily sort(desc(reported_date, true),",
 				"     asc(country, true)) ~> SortDaily",
 				"SortWeekly select(mapColumn(",
 				"          country,",
@@ -170,12 +198,44 @@
 				"          country_code_3_digit,",
 				"          population,",
 				"          reported_year_week,",
-				"          source,",
-				"          {Weekly new hospital admissions per 100kcount} = {Weekly new hospital admissions per 100k_count},",
-				"          {Weekly new ICU admissions per 100kcount} = {Weekly new ICU admissions per 100k_count}",
+				"          reported_week_start_date = week_start_date,",
+				"          reported_week_end_date = week_end_date,",
+				"          new_hospital_occupancy_count = {Weekly new hospital admissions per 100k...count},",
+				"          new_icu_occupancy_count = {Weekly new ICU admissions per 100k...count},",
+				"          source",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select3"
+				"     skipDuplicateMapOutputs: true) ~> selectWeekly",
+				"SortDaily select(mapColumn(",
+				"          country,",
+				"          country_code_2_digit,",
+				"          country_code_3_digit,",
+				"          population,",
+				"          reported_date,",
+				"          source,",
+				"          Hospital_occupancy_count = {Daily Hospital occupancy...count},",
+				"          { ICU_occupancy_count} = {Daily ICU occupancy...count}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectDaily",
+				"selectWeekly sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['hospital_admissions_weekly.csv'],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sinkWeekly",
+				"selectDaily sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['hospital_admissions_daliy.csv'],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink1"
 			]
 		}
 	}
